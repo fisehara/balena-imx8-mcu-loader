@@ -1,0 +1,43 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine
+
+# hadolint ignore=DL3018
+RUN apk add --no-cache \
+    bash \
+    build-base \
+    curl \
+    libmnl-dev \
+    iptables \
+    flex \
+    bison \
+    bc \
+    python3 \
+    kmod \
+    openresolv \
+    iproute2 \
+    kmod \
+    libqrencode \
+    gettext \
+    ipcalc \
+    openssl-dev \
+    perl
+
+WORKDIR /usr/src/app
+
+# Set both of these to match your target device to pre-build modules
+# Leave at least one of them unset to postpone module building to app start
+ARG BALENA_DEVICE_TYPE=%%BALENA_MACHINE_NAME%%
+ARG BALENA_HOST_OS_VERSION=2.67.3+rev2
+
+
+COPY m4ctrl m4ctrl/
+
+COPY buildmod.sh ./
+RUN chmod +x ./buildmod.sh && ./buildmod.sh
+
+WORKDIR /usr/src/app
+COPY run.sh ./
+
+CMD [ "/usr/src/app/run.sh" ]
+
+# set log level for userspace module
+ENV LOG_LEVEL "verbose"

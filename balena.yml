@@ -1,0 +1,23 @@
+name: imx8 mcu loader
+type: sw.application
+version: 0.0.1
+description: >-
+  Some NXP IMX8 silicons come with application processors (Cortex-A) and Cortex M4F microcontrollers.
+  The microcontrollers can be loaded with firmware and the execution can be stopped and started.
+
+post-provisioning: >-
+
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/fisehara/balena-imx8-mcu-loader'
+  logo:
+    type: blob.asset
+    data:
+      url: >-
+        https://raw.githubusercontent.com/fisehara/balena-imx8-mcu-loader/main/logo.png
+data:
+  defaultDeviceType: coral-dev
+  supportedDeviceTypes:
+    - coral-dev
