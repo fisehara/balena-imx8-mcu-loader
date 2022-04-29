@@ -1,25 +1,16 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-alpine
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian
 
-# hadolint ignore=DL3018
-RUN apk add --no-cache \
+
+RUN "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | tee /etc/apt/sources.list.d/coral-edgetpu.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
-    build-base \
-    curl \
-    libmnl-dev \
-    iptables \
-    flex \
-    bison \
-    bc \
-    python3 \
+    wget \
     kmod \
-    openresolv \
-    iproute2 \
-    kmod \
-    libqrencode \
-    gettext \
-    ipcalc \
-    openssl-dev \
-    perl
+    perl \
+    cmake \
+    build-essential
 
 WORKDIR /usr/src/app
 
@@ -28,14 +19,16 @@ WORKDIR /usr/src/app
 ARG BALENA_DEVICE_TYPE=%%BALENA_MACHINE_NAME%%
 ARG BALENA_HOST_OS_VERSION=2.67.3+rev2
 
+RUN wget -c https://developer.arm.com/-/media/Files/downloads/gnu/11.2-2022.02/binrel/gcc-arm-11.2-2022.02-aarch64-arm-none-eabi.tar.xz -O gcc-arm-11.2-2022.02-aarch64-arm-none-eabi.tar.xz \
+            && tar -xf gcc-arm-11.2-2022.02-aarch64-arm-none-eabi.tar.xz && rm -rf gcc-arm-11.2-2022.02-aarch64-arm-none-eabi.tar.xz 
 
-COPY m4ctrl m4ctrl/
 
-COPY buildmod.sh ./
-RUN chmod +x ./buildmod.sh && ./buildmod.sh
+COPY buildmod.sh run.sh mcuxpresso_sdk.tar.gz ./ 
+COPY m4ctrl/ m4ctrl
+RUN chmod +x ./buildmod.sh && chmod +x ./run.sh
+RUN mkdir mcuxpresso_sdk && tar -xzf mcuxpresso_sdk.tar.gz -C mcuxpresso_sdk
 
-WORKDIR /usr/src/app
-COPY run.sh ./
+RUN ./buildmod.sh
 
 CMD [ "/usr/src/app/run.sh" ]
 

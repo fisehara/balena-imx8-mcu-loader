@@ -10,3 +10,4 @@
 ### References: 
 - Repo structure is blatantly copied from this awesome repo: https://github.com/klutchell/balena-wireguard (THX :) ) 
 - m4ctrl is cloned from: https://source.codeaurora.org/external/imxsupport/m4ctrl/tree/
+- MCUxpresso The SDK_2_11_0_MIMX8MQ6xxxHZ.tar.gz has been generated and download from https://mcuxpresso.nxp.com/en/dashboard

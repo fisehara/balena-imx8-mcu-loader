@@ -18,6 +18,10 @@
 
 #include "platform/imx_v6_v7.h"
 
+#elif defined(IMX8MM)
+
+#include "platform/imx8mm.h"
+
 #else
 
 #error "Platform undefined!"

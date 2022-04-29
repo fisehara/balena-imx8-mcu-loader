@@ -23,14 +23,14 @@ export SOC=<IMX8QXP/IMX8QM>
 #### # Build the application and kernel module
 make
 
-For i.mx6 and i.mx7, it is needed to build only the user space application.
+For i.mx6, i.mx7 and i.mx8mm, it is needed to build only the user space application.
 
 ### 2.1 Setup environment:
 #### # Initialize the environment by sourcing an environment setup script from yocto toolchain generated for desired platform
 . /opt/fsl-imx-x11/4.1.33-7ulp_beta/environment-setup-cortexa7hf-neon-poky-linux-gnueabi
 
 #### # Export SOC variable for the desired platform
-export SOC=<IMX6SX/IMX7D/IMX7S>
+export SOC=<IMX6SX/IMX7D/IMX7S/IMX8MM>
 
 #### # Build the application
 make
@@ -78,5 +78,5 @@ Examples: - i.mx6sx
 root@imx6sxsabresd:~# ./m4ctrl --deploy=hello_world.bin
 
 ### 4. Known limitations:
-1. Cortex M4 should be started from u-boot on imx6 and imx7 platforms.
+1. Cortex M4 should be started from u-boot on imx6 and imx7 platforms and from imx8mm.
 2. Due to known hardware TLB issue, sometimes the application will block on IMX8QM.

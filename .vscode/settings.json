@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.sbvr": "sbvr",
+        "m4ctrl.h": "c"
+    }
+}

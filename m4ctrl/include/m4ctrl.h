@@ -8,7 +8,7 @@
  */
 
 #ifndef __M4CTRL_H__
-#define __M4CTRL_H__		1
+#define __M4CTRL_H__ 1
 
 #include <asm/ioctl.h>
 
@@ -34,7 +34,9 @@
 void m4_start();
 void m4_stop();
 void m4_reset();
-void m4_deploy( char * filename );
+void m4_deploy(char *filename);
+void m4_enable();
+void m4_disable();
 
 /* Versioning Convention:
  * 0.1.<release_number> - Alpha Version

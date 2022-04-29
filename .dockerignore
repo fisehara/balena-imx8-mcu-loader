@@ -1,0 +1,9 @@
+.git
+.dockerignore
+.gitignore
+.balena
+
+balena.yml
+docker-compose.yml
+Dockerfile.template
+logo.*
